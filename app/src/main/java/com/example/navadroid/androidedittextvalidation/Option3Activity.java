@@ -2,10 +2,13 @@ package com.example.navadroid.androidedittextvalidation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.regex.Pattern;
 
 public class Option3Activity extends AppCompatActivity {
 
@@ -47,10 +50,25 @@ public class Option3Activity extends AppCompatActivity {
                 if (etName.getText().toString().length() == 0) {
                     etName.setError("Required");
                 }
+
             }
         });
 
         etPwd.addTextChangedListener(new TextValidator(etPwd) {
+            @Override
+            public void validate(TextView textView, String text) {
+                // TODO: add your Password validation here
+            }
+        });
+
+        etEmail.addTextChangedListener(new TextValidator(etPwd) {
+            @Override
+            public void validate(TextView textView, String text) {
+                // TODO: add your Password validation here
+            }
+        });
+
+        etPhone.addTextChangedListener(new TextValidator(etPwd) {
             @Override
             public void validate(TextView textView, String text) {
                 // TODO: add your Password validation here
@@ -67,6 +85,31 @@ public class Option3Activity extends AppCompatActivity {
         boolean isValidated = true;
         if (etName.getText().toString().length() == 0) {
             etName.setError("Required");
+            isValidated = false;
+        }
+
+        if (etPwd.getText().toString().length() == 0) {
+            etPwd.setError("Required");
+            isValidated = false;
+        }else if (!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$").matcher(etPwd.getText().toString()).matches()) {
+            etPwd.setError("Invalid Type of Password");
+            isValidated = false;
+        }
+
+        if (etEmail.getText().toString().length() == 0) {
+            etEmail.setError("Required");
+            isValidated = false;
+        }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
+            etEmail.setError("Invalid Type of Email");
+            isValidated = false;
+        }
+
+        if (etPhone.getText().toString().length() == 0) {
+            etPhone.setError("Required");
+            isValidated = false;
+        }else if(!Pattern.compile("^[0-9+-]{9,17}$").matcher(etPhone.getText().toString()).matches()) {
+            //return PhoneNumberUtils.isGlobalPhoneNumber(etPhone.getText().toString());
+            etPhone.setError("Invalid Type of Phone number");
             isValidated = false;
         }
         // TODO: add your EditText validation here
