@@ -91,26 +91,29 @@ public class Option3Activity extends AppCompatActivity {
         if (etPwd.getText().toString().length() == 0) {
             etPwd.setError("Required");
             isValidated = false;
-        }else if (!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$").matcher(etPwd.getText().toString()).matches()) {
-            etPwd.setError("Invalid Type of Password");
-            isValidated = false;
+            if (!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$").matcher(etPwd.getText().toString()).matches()) {
+                etPwd.setError("Invalid Type of Password");
+                isValidated = false;
+            }
         }
 
         if (etEmail.getText().toString().length() == 0) {
             etEmail.setError("Required");
             isValidated = false;
-        }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
-            etEmail.setError("Invalid Type of Email");
-            isValidated = false;
+            if(!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
+                etEmail.setError("Invalid Type of Email");
+                isValidated = false;
+            }
         }
 
         if (etPhone.getText().toString().length() == 0) {
             etPhone.setError("Required");
             isValidated = false;
-        }else if(!Pattern.compile("^[0-9+-]{9,17}$").matcher(etPhone.getText().toString()).matches()) {
-            //return PhoneNumberUtils.isGlobalPhoneNumber(etPhone.getText().toString());
-            etPhone.setError("Invalid Type of Phone number");
-            isValidated = false;
+            if(!Pattern.compile("^[0-9+-]{9,17}$").matcher(etPhone.getText().toString()).matches()) {
+                //return PhoneNumberUtils.isGlobalPhoneNumber(etPhone.getText().toString());
+                etPhone.setError("Invalid Type of Phone number");
+                isValidated = false;
+            }
         }
         // TODO: add your EditText validation here
 
